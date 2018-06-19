@@ -5,7 +5,7 @@
 
 const Cortex = require("../lib/cortex");
 const { from, fromEvent } = require("rxjs");
-const { mergeMap, map, tap } = require("rxjs/operators");
+const { mergeMap, map } = require("rxjs/operators");
 
 function createRawEmotivObservable(client, auth, onEEG) {
   return from(
@@ -47,7 +47,9 @@ if (require.main === module) {
     timestamp: data.time
   });
 
-  rawObservable = createRawEmotivObservable(client, auth, onEEG);
+  const rawObservable = createRawEmotivObservable(client, auth, onEEG);
 
   rawObservable.subscribe(console.log);
 }
+
+module.exports = { createRawEmotivObservable };
