@@ -11,11 +11,8 @@ function createRawEmotivObservable(client, auth, onEEG) {
   return from(
     client.ready
       .then(() => client.init(auth))
-      .then(() =>
-        client
-          .createSession({ status: "active" })
-          .subscribe({ streams: ["eeg"] })
-      )
+      .then(() => client.createSession({ status: "active" }))
+      .then(() => subscribe({ streams: ["eeg"] }))
   ).pipe(
     mergeMap(subs => {
       if (!subs[0].eeg) throw new Error("failed to subscribe");
@@ -38,7 +35,8 @@ if (require.main === module) {
     username: "...",
     password: "...",
     client_id: "...",
-    client_secret: "...",
+    client_secret:
+      "...",
     debit: 1
   };
 
